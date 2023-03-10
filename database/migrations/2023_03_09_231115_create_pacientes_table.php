@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
-            $table->string('foto', 250);
+            $table->string('cpf', 14)->unique();
             $table->string('nome', 100);
             $table->string('mae', 100);
             $table->date('nascimento');
-            $table->string('cpf', 14);
             $table->string('cns', 15);
+            $table->string('foto', 250);
+            $table->timestamps();
         });
     }
 

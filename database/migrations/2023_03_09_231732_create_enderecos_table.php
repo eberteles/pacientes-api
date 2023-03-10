@@ -17,11 +17,12 @@ return new class extends Migration
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->string('cep', 10);
             $table->text('endereco');
-            $table->integer('numero');
+            $table->string('numero', 10);
             $table->string('complemento', 100);
             $table->string('bairro', 50);
             $table->string('cidade', 50);
             $table->string('estado', 2);
+            $table->timestamps();
         });
     }
 
