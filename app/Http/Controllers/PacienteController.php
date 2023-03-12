@@ -43,7 +43,9 @@ class PacienteController extends Controller
      */
     public function show(string $id)
     {
-        return new PacienteResource( Paciente::findOrFail($id) );
+        $paciente = Paciente::findOrFail($id)->load('endereco');
+
+        return new PacienteResource( $paciente );
     }
 
     /**
