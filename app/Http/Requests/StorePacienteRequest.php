@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class StorePacienteRequest extends FormRequest
 {
@@ -26,22 +27,28 @@ class StorePacienteRequest extends FormRequest
                 'required', 'min:3', 'max:100'
             ],
             'mae' => [
-                'min:3', 'max:100'
+                'required', 'min:3', 'max:100'
             ],
             'nascimento' => [
-                'date'
+                'required', 'date'
             ],
             'cns' => [
-                'min:15', 'max:15'
+                'required', 'cns', 'min:15', 'max:15'
             ],
             'foto' => [
-                'max:250'
+                'required', 'max:250'
+            ],
+            'endereco.numero' => [
+                'required'
+            ],
+            'endereco.complemento' => [
+                'required'
             ]
         ];
 
         if($this->method() == 'POST') {
             $regras['cpf'] = [
-                'required', 'min:14', 'max:14', 'unique:pacientes'
+                'required', 'cpf', 'min:14', 'max:14', 'unique:pacientes'
             ];
         }
 
