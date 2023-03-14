@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Resources\PacienteResource;
+use App\Jobs\ImportarPacienteJob;
 use App\Models\Paciente;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
@@ -15,7 +17,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        $pacientes = Paciente::with('endereco')->get();
+        $pacientes = Paciente::with('endereco')->paginate(4);
         return PacienteResource::collection($pacientes);
     }
 
@@ -24,7 +26,7 @@ class PacienteController extends Controller
      */
     public function store(StorePacienteRequest $request)
     {
-        $dados      = $request->all();
+        $dados      = $request->all();dd($dados);
 
         try {
             DB::beginTransaction();
@@ -36,6 +38,25 @@ class PacienteController extends Controller
         }
 
         return new PacienteResource( $paciente );
+    }
+
+    public function import(Request $request)
+    {
+        if($request->hasFile('file') && $request->file('file')->isValid()) {
+            $nomeArquivo    = uniqid(date('HisYmd')) . '.csv';
+            $request->file->storeAs('importar', $nomeArquivo);
+
+            //ImportarPacienteJob::dispatch($nomeArquivo);
+            return response()->json([], 200);
+        }
+    }
+
+    public function teste()
+    {
+        //dd('oi');
+        ImportarPacienteJob::dispatch('165055202303146410a5efd4cf9.csv');
+        //ImportarPacienteJob::dispatch();
+        return response()->json([], 200);
     }
 
     /**
