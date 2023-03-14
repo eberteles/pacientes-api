@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('mae', 100);
             $table->date('nascimento');
             $table->string('cns', 15);
-            $table->string('foto', 250);
+            $table->string('foto', 500);
             $table->timestamps();
         });
     }

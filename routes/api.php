@@ -16,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/cep/{numero}', [CepController::class, 'show']);
+Route::get('/teste', [PacienteController::class, 'teste']);
 Route::apiResource('/pacientes', PacienteController::class);
+Route::post('/import', [PacienteController::class, 'import']);
