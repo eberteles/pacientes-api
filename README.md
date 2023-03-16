@@ -1,6 +1,6 @@
 # API - Pacientes
 
-Funcionalidades:
+## Funcionalidades:
 
 - CRUD de Pacientes.
 - Importação de Pacientes.
