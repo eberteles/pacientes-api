@@ -26,7 +26,7 @@ class PacienteController extends Controller
      */
     public function store(StorePacienteRequest $request)
     {
-        $dados      = $request->all();dd($dados);
+        $dados      = $request->all();
 
         try {
             DB::beginTransaction();
@@ -46,7 +46,7 @@ class PacienteController extends Controller
             $nomeArquivo    = uniqid(date('HisYmd')) . '.csv';
             $request->file->storeAs('importar', $nomeArquivo);
 
-            //ImportarPacienteJob::dispatch($nomeArquivo);
+            ImportarPacienteJob::dispatch($nomeArquivo);
             return response()->json([], 200);
         }
     }
