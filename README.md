@@ -15,3 +15,6 @@
 5. php artisan key:generate
 5. php artisan migrate
 6. php artisan db:seed
+
+## Cobertura dos Testes:
+php artisan test --coverage
