@@ -22,7 +22,7 @@ class PacienteFactory extends Factory
             'nome'          => $faker->name,
             'mae'           => $faker->name,
             'nascimento'    => $faker->date,
-            'cns'           => '152636985474582',
+            'cns'           => '762667113220001',
             'foto'          => 'https://www.folhavitoria.com.br/entretenimento/blogs/du-ponto-de-vista-masculino/wp-content/uploads/2015/11/careca-800x500.jpg'
         ];
     }

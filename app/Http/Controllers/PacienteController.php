@@ -28,16 +28,11 @@ class PacienteController extends Controller
     {
         $dados      = $request->all();
 
-        try {
-            DB::beginTransaction();
-            $paciente = Paciente::create($dados);
-            $paciente->endereco()->create($dados['endereco']);
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-        }
-
+        $paciente = Paciente::create($dados);
+        $paciente->endereco()->create($dados['endereco']);
+        DB::commit();
         return new PacienteResource( $paciente );
+
     }
 
     public function import(Request $request)
@@ -49,14 +44,6 @@ class PacienteController extends Controller
             ImportarPacienteJob::dispatch($nomeArquivo);
             return response()->json([], 200);
         }
-    }
-
-    public function teste()
-    {
-        //dd('oi');
-        ImportarPacienteJob::dispatch('165055202303146410a5efd4cf9.csv');
-        //ImportarPacienteJob::dispatch();
-        return response()->json([], 200);
     }
 
     /**
@@ -76,15 +63,9 @@ class PacienteController extends Controller
     {
         $paciente   = Paciente::findOrFail($id);
 
-        try {
-            DB::beginTransaction();
-            $paciente->update( $request->validated() );
+        $paciente->update( $request->validated() );
 
-            $paciente->endereco()->update( $request->all()['endereco'] );
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollBack();
-        }
+        $paciente->endereco()->update( $request->all()['endereco'] );
 
         return new PacienteResource( $paciente );
     }
